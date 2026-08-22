@@ -24,6 +24,14 @@ class ProjectSettings:
 
 
 @dataclass(frozen=True)
+class AudienceSettings:
+    role: str
+    goal: str
+    workflow: str
+    technicality: int
+
+
+@dataclass(frozen=True)
 class ProviderSettings:
     name: str
     kind: str
@@ -54,6 +62,7 @@ class AudioSettings:
 class Settings:
     root: Path
     project: ProjectSettings
+    audience: AudienceSettings
     providers: dict[str, ProviderSettings]
     scouts: tuple[AgentSettings, ...]
     critic: AgentSettings
@@ -104,6 +113,31 @@ def load_settings(path: str | Path) -> Settings:
     if project.target_words_per_minute < 100 or project.target_words_per_minute > 220:
         raise ConfigError("project.target_words_per_minute must be between 100 and 220")
 
+    audience_raw = raw.get("audience", {})
+    audience = AudienceSettings(
+        role=str(
+            audience_raw.get(
+                "role",
+                "A business builder who directs AI agents but does not write the implementation",
+            )
+        ),
+        goal=str(
+            audience_raw.get(
+                "goal",
+                "Give better direction, judge the result, and improve the next iteration",
+            )
+        ),
+        workflow=str(
+            audience_raw.get(
+                "workflow",
+                "The listener defines the outcome and constraints; an AI agent builds and tests; the listener reviews the evidence and decides what happens next",
+            )
+        ),
+        technicality=int(audience_raw.get("technicality", 3)),
+    )
+    if audience.technicality < 1 or audience.technicality > 10:
+        raise ConfigError("audience.technicality must be between 1 and 10")
+
     providers: dict[str, ProviderSettings] = {}
     for name, provider_raw in raw.get("providers", {}).items():
         providers[name] = ProviderSettings(
@@ -145,6 +179,7 @@ def load_settings(path: str | Path) -> Settings:
     return Settings(
         root=root,
         project=project,
+        audience=audience,
         providers=providers,
         scouts=scouts,
         critic=critic,

@@ -55,6 +55,7 @@ The audio renderer is a separate command. A completed script does not automatica
 - **A real critic.** The critic can kill attractive material, challenge vendor incentives, and recommend a shorter episode.
 - **A runtime ceiling.** Ninety minutes is the maximum, never a target.
 - **Evidence before eloquence.** The pipeline keeps claims, limits, and source files visible before producing polished narration.
+- **Audience before jargon.** A listener profile and one-to-ten technicality ceiling shape idea selection before the script is written.
 - **Human authority.** Audio generation requires a separate command and an explicit external-service acknowledgement.
 - **Provider choice.** Agents can use any OpenAI-compatible endpoint, including a local model server or a hosted provider.
 - **Private by default.** Generated runs and audio files are ignored by Git.
@@ -77,6 +78,8 @@ python3 -m pip install -e .
 ```
 
 Edit `config.toml` with your model endpoint and model name. The example points to a local endpoint and does not require an API key. For a hosted provider, name an environment variable in `api_key_env` and set the key outside the configuration file.
+
+Also edit the `[audience]` section. The default profile is a business builder who gives AI agents direction, lets them build and test, and reviews the evidence. Its technicality target is three out of ten.
 
 Run the editorial pipeline on the synthetic example sources:
 
@@ -148,6 +151,7 @@ Do not include credentials, confidential documents, personal data, copyrighted f
 The final script must:
 
 - Stay below the configured runtime ceiling.
+- Stay at or below the configured audience technicality target.
 - Contain no spoken URLs.
 - Preserve material uncertainty.
 - Attribute consequential claims.

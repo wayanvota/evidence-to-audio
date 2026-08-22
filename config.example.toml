@@ -4,6 +4,15 @@ max_minutes = 90
 target_words_per_minute = 160
 output_dir = "runs"
 
+# Define the listener before choosing ideas. Technicality uses a 1-to-10 scale:
+# 1 is business outcomes with almost no implementation detail; 10 is an
+# engineering implementation discussion.
+[audience]
+role = "A business builder who directs AI agents but does not write the implementation"
+goal = "Give better direction, judge the result, and improve the next iteration"
+workflow = "I define the outcome and constraints; an AI agent builds and tests; I review the evidence and decide what happens next"
+technicality = 3
+
 # Any endpoint that implements OpenAI-compatible chat completions can be used.
 # For a local server, leave api_key_env empty. For a hosted provider, store the
 # key in the named environment variable. Never put a key in this file.

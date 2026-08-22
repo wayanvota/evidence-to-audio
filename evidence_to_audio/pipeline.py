@@ -58,12 +58,25 @@ class Pipeline:
         self.provider_factory = provider_factory
         self.clock = clock
 
+    def _audience_context(self) -> str:
+        audience = self.settings.audience
+        return (
+            "===== LISTENER PROFILE =====\n\n"
+            f"Role: {audience.role}\n"
+            f"Primary goal: {audience.goal}\n"
+            f"Working pattern: {audience.workflow}\n"
+            f"Technicality target: {audience.technicality} out of 10. "
+            "One means business outcomes and observable checks with almost no implementation detail. "
+            "Ten means an engineering implementation discussion. Do not exceed the target."
+        )
+
     def _run_agent(self, agent: AgentSettings, context: str) -> str:
         provider = self.provider_factory(self.settings.providers[agent.provider])
         return provider.complete(_read_prompt(agent.prompt), context)
 
     def run(self, source_dir: str | Path) -> Path:
         source_pack, source_names = load_source_pack(source_dir)
+        audience_context = self._audience_context()
         started = self.clock()
         run_name = started.strftime("%Y%m%dT%H%M%SZ")
         run_dir = self.settings.project.output_dir / run_name
@@ -73,7 +86,11 @@ class Pipeline:
         scout_results: dict[str, str] = {}
         with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.settings.scouts)) as pool:
             pending = {
-                pool.submit(self._run_agent, agent, source_pack): agent
+                pool.submit(
+                    self._run_agent,
+                    agent,
+                    f"{audience_context}\n\n===== SOURCE PACK =====\n\n{source_pack}",
+                ): agent
                 for agent in self.settings.scouts
             }
             for future in concurrent.futures.as_completed(pending):
@@ -90,7 +107,8 @@ class Pipeline:
             for name in sorted(scout_results)
         )
         critic_context = (
-            "Review these independent scout reports. The source files are listed below.\n\n"
+            audience_context
+            + "\n\nReview these independent scout reports. The source files are listed below.\n\n"
             + "\n".join(f"- {name}" for name in source_names)
             + "\n\n"
             + combined_scouts
@@ -99,7 +117,8 @@ class Pipeline:
         (run_dir / "critic.md").write_text(critic.rstrip() + "\n", encoding="utf-8")
 
         editor_context = (
-            f"Episode title: {self.settings.project.title}\n\n"
+            audience_context
+            + f"\n\nEpisode title: {self.settings.project.title}\n\n"
             f"Maximum runtime: {self.settings.project.max_minutes} minutes. "
             "Shorter is preferred when the evidence does not justify the time.\n\n"
             f"===== CRITIC DECISION =====\n\n{critic}\n\n"
@@ -113,7 +132,8 @@ class Pipeline:
             * self.settings.project.target_words_per_minute
         )
         producer_context = (
-            f"Maximum spoken-word ceiling: {max_words} words. This is a ceiling, not a target.\n\n"
+            audience_context
+            + f"\n\nMaximum spoken-word ceiling: {max_words} words. This is a ceiling, not a target.\n\n"
             f"===== EDITOR DRAFT =====\n\n{draft}\n\n"
             f"===== CRITIC DECISION =====\n\n{critic}"
         )
@@ -123,6 +143,12 @@ class Pipeline:
         manifest = {
             "schema_version": 1,
             "title": self.settings.project.title,
+            "audience": {
+                "role": self.settings.audience.role,
+                "goal": self.settings.audience.goal,
+                "workflow": self.settings.audience.workflow,
+                "technicality": self.settings.audience.technicality,
+            },
             "created_at": started.isoformat(),
             "source_files": source_names,
             "scouts": sorted(scout_results),

@@ -14,6 +14,17 @@ An idea deserves audio time when it is:
 
 A famous source receives no automatic preference. A minor source can lead. A week with one strong idea should produce a short episode.
 
+## Business-builder test
+
+A technically impressive idea does not earn time unless it changes how the listener builds with AI. Each kept idea should answer four practical questions:
+
+1. What did we learn?
+2. What should the listener tell the AI agent to do differently?
+3. What evidence should the listener request before accepting the work?
+4. What result should trigger another iteration or a stop?
+
+The default listener sets the outcome and constraints, then asks an AI agent to build and test. The episode should improve that direction-and-review loop. Technical mechanisms receive one short explanation when needed. Code, infrastructure, benchmark mechanics, architecture, and engineering process details should be removed when they do not change the listener's action.
+
 ## Claim discipline
 
 The agents should keep four categories separate:

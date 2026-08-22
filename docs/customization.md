@@ -1,5 +1,19 @@
 # Customization
 
+## Define the listener first
+
+The same source pack can produce a technical briefing, an executive briefing, or a practical builder briefing. Set the audience before changing agent prompts:
+
+```toml
+[audience]
+role = "A business builder who directs AI agents but does not write the implementation"
+goal = "Give better direction, judge the result, and improve the next iteration"
+workflow = "I define the outcome and constraints; an AI agent builds and tests; I review the evidence and decide what happens next"
+technicality = 3
+```
+
+Technicality runs from one to ten. One focuses almost entirely on business outcomes and observable checks. Ten assumes the listener wants implementation details. The pipeline passes this profile to every agent so selection changes before the script is written.
+
 ## Add a scout
 
 Create a prompt under `prompts/`, then add an entry under `[agents.scouts]` in `config.toml`:

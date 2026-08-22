@@ -46,6 +46,20 @@ class DocumentationTests(unittest.TestCase):
         ):
             self.assertIn(required, prompt)
 
+    def test_prompts_enforce_business_builder_audience(self):
+        required_by_file = {
+            "critic.md": ("business builder", "acceptance check"),
+            "editor.md": ("technicality", "What should the listener tell"),
+            "producer.md": ("three out of ten", "practical builder move"),
+            "scout-application.md": ("does not write the implementation", "concrete direction"),
+            "scout-evidence.md": ("directing or reviewing an AI agent", "observable proof"),
+            "scout-skeptic.md": ("technical details can be removed", "business builder"),
+        }
+        for filename, phrases in required_by_file.items():
+            prompt = (ROOT / "prompts" / filename).read_text(encoding="utf-8").lower()
+            for phrase in phrases:
+                self.assertIn(phrase.lower(), prompt, filename)
+
 
 if __name__ == "__main__":
     unittest.main()

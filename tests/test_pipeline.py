@@ -11,7 +11,11 @@ from evidence_to_audio.validation import validate_run
 
 
 class FakeProvider:
+    def __init__(self):
+        self.contexts: list[str] = []
+
     def complete(self, system: str, user: str) -> str:
+        self.contexts.append(user)
         if "scout" in system:
             return "# Scout report\n\nKEEP: One supported idea with a visible limit."
         if system == "critic":
@@ -43,6 +47,12 @@ def write_pipeline_project(root: Path) -> Path:
             max_minutes = 10
             target_words_per_minute = 160
             output_dir = "runs"
+
+            [audience]
+            role = "A business builder"
+            goal = "Give better direction and review proof"
+            workflow = "I direct; the agent builds and tests; I review"
+            technicality = 3
 
             [providers.primary]
             kind = "openai_compatible"
@@ -101,9 +111,10 @@ class PipelineTests(unittest.TestCase):
             sources.mkdir()
             (sources / "source.md").write_text("Synthetic evidence.", encoding="utf-8")
             settings = load_settings(config)
+            provider = FakeProvider()
             pipeline = Pipeline(
                 settings,
-                provider_factory=lambda _settings: FakeProvider(),
+                provider_factory=lambda _settings: provider,
                 clock=lambda: datetime(2026, 8, 22, 14, 0, tzinfo=UTC),
             )
             run_dir = pipeline.run(sources)
@@ -113,6 +124,11 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(validate_run(run_dir), [])
             manifest = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8"))
             self.assertFalse(manifest["audio_rendered"])
+            self.assertEqual(manifest["audience"]["technicality"], 3)
+            self.assertEqual(len(provider.contexts), 5)
+            for context in provider.contexts:
+                self.assertIn("Technicality target: 3 out of 10", context)
+                self.assertIn("A business builder", context)
 
 
 if __name__ == "__main__":

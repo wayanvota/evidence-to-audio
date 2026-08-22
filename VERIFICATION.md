@@ -17,7 +17,7 @@ python3 -m venv /tmp/evidence-to-audio-venv
 
 Expected result:
 
-- Thirteen unit tests pass.
+- Fifteen unit tests pass.
 - The synthetic sample run validates.
 - Python compilation completes without error.
 - A fresh editable installation exposes a working command-line entry point.
@@ -30,6 +30,7 @@ Expected result:
 - `.gitignore` excludes environment files, generated runs, and audio.
 - External Edge TTS narration fails unless `--approve-external-tts` is present.
 - The final audio step remains separate from the editorial pipeline.
+- Every editorial agent receives the configured listener profile and technicality ceiling.
 - The script validator rejects spoken URLs, runtime overages, Markdown headings, and visual list markers.
 - Public prose contains no unsupported performance or cost claims.
 
