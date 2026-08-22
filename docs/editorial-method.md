@@ -25,6 +25,38 @@ The agents should keep four categories separate:
 
 The spoken script should preserve this separation through attribution and careful transitions.
 
+## Spoken structure
+
+The narrator should not have to infer editorial structure from typography. Markdown headings, bullets, capitalization, and comma-heavy sentences may be obvious on a page but ambiguous in speech.
+
+Major sections should be announced as plain spoken sentences:
+
+```text
+Section two. Why the evidence is weaker than the headline.
+```
+
+Subsections should use the same pattern:
+
+```text
+First point. The comparison group.
+```
+
+When several ideas belong together, announce the count and separate the items:
+
+```text
+There are three reasons this result needs another test.
+
+First, the sample was small.
+
+Second, the trial had no comparison group.
+
+Third, the buildings differed before the intervention began.
+
+Taken together, those limits make the result useful for designing a larger trial, not for forecasting citywide savings.
+```
+
+Each item is a complete sentence. The final transition sits in a new paragraph so the narrator cannot mistake it for another list item. Numbering should clarify a real sequence or set, not manufacture importance.
+
 ## The Critic's test
 
 For the proposed episode, the Critic names:

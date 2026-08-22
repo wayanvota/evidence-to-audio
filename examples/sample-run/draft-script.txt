@@ -1,9 +1,23 @@
-A small city cooling pilot produced one useful result, but it was not the result promoted by the vendor.
+Section one. What the pilot actually showed.
 
-Five of six municipal buildings became cooler in the afternoon after reflective roof coating was installed. Weather-adjusted electricity use also fell in those five buildings. One building showed no measured temperature change.
+A small city cooling pilot produced one useful result, but it was not the result promoted by the vendor. Five of six municipal buildings became cooler in the afternoon after reflective roof coating was installed. Weather-adjusted electricity use also fell in those five buildings. One building showed no measured temperature change.
+
+Section two. Why the headline overreaches.
 
 The vendor highlighted the best result, a nine percent electricity reduction. That number does not describe the whole pilot. Six buildings are too few for a citywide forecast, and the pilot had no comparison group.
 
 The more useful clue came from the facilities manager. Roof condition, insulation, ventilation, and preparation work appeared to differ across the buildings. That observation is plausible, but it was not tested.
 
-The next contract should buy evidence before it buys scale. A larger trial should compare total installed cost, roof preparation, building condition, cooling performance, and maintenance. The decision metric should be verified performance by building type, not the coating's unit price or the vendor's best case.
+Section three. What the next contract should test.
+
+There are four priorities.
+
+First, compare total installed cost, including roof preparation.
+
+Second, document each building's starting condition, including the roof structure and its insulation and ventilation.
+
+Third, compare cooling performance across similar buildings.
+
+Fourth, track maintenance over time.
+
+Taken together, those measures would buy evidence before buying scale. The decision metric should be verified performance by building type, not the coating's unit price or the vendor's best case.

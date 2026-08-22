@@ -47,6 +47,31 @@ class ValidationTests(unittest.TestCase):
             errors = validate_run(root)
             self.assertIn("manifest is missing valid runtime settings", errors)
 
+    def test_rejects_visual_headings_and_list_markers(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "scouts").mkdir()
+            (root / "scouts" / "one.md").write_text("One", encoding="utf-8")
+            (root / "scouts" / "two.md").write_text("Two", encoding="utf-8")
+            (root / "critic.md").write_text("Critic", encoding="utf-8")
+            (root / "draft-script.txt").write_text("Draft", encoding="utf-8")
+            script = "# Findings\n\n- First result\n- Second result\n"
+            (root / "script.txt").write_text(script, encoding="utf-8")
+            (root / "manifest.json").write_text(
+                json.dumps(
+                    {
+                        "max_minutes": 1,
+                        "target_words_per_minute": 100,
+                        "script_words": len(script.split()),
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = validate_run(root)
+            self.assertTrue(any("Markdown heading" in error for error in errors))
+            self.assertTrue(any("Markdown list" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

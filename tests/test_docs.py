@@ -34,6 +34,18 @@ class DocumentationTests(unittest.TestCase):
                 offenders.append(str(document.relative_to(ROOT)))
         self.assertEqual(offenders, [])
 
+    def test_producer_prompt_requires_audible_structure(self):
+        prompt = (ROOT / "prompts" / "producer.md").read_text(encoding="utf-8")
+        for required in (
+            "Section one.",
+            "First point.",
+            "There are three points.",
+            '"First," "Second," "Third,"',
+            "A sentence with three or more commas usually needs",
+            "The sentence after a list cannot be mistaken for another list item.",
+        ):
+            self.assertIn(required, prompt)
+
 
 if __name__ == "__main__":
     unittest.main()

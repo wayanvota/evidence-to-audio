@@ -17,6 +17,6 @@
   "producer": "producer",
   "max_minutes": 90,
   "target_words_per_minute": 160,
-  "script_words": 163,
+  "script_words": 207,
   "audio_rendered": false
 }

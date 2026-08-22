@@ -6,6 +6,8 @@ from pathlib import Path
 
 
 URL_PATTERN = re.compile(r"https?://\S+")
+MARKDOWN_HEADING_PATTERN = re.compile(r"^\s{0,3}#{1,6}\s+", re.MULTILINE)
+MARKDOWN_LIST_PATTERN = re.compile(r"^\s*(?:[-*+] |\d+[.)] )", re.MULTILINE)
 
 
 def validate_run(run_dir: str | Path) -> list[str]:
@@ -44,4 +46,12 @@ def validate_run(run_dir: str | Path) -> list[str]:
                 errors.append("manifest script_words does not match script.txt")
             if URL_PATTERN.search(script):
                 errors.append("Spoken script contains a URL; move URLs to show notes")
+            if MARKDOWN_HEADING_PATTERN.search(script):
+                errors.append(
+                    "Spoken script contains a Markdown heading; use an audible section announcement"
+                )
+            if MARKDOWN_LIST_PATTERN.search(script):
+                errors.append(
+                    "Spoken script contains Markdown list syntax; use spoken ordinals in separate paragraphs"
+                )
     return errors
