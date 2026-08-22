@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "title": "Synthetic City Cooling Brief",
+  "created_at": "2026-08-22T00:00:00+00:00",
+  "source_files": [
+    "01-city-report.md",
+    "02-vendor-note.md",
+    "03-facilities-interview.md"
+  ],
+  "scouts": [
+    "application",
+    "evidence",
+    "skeptic"
+  ],
+  "critic": "critic",
+  "editor": "editor",
+  "producer": "producer",
+  "max_minutes": 90,
+  "target_words_per_minute": 160,
+  "script_words": 163,
+  "audio_rendered": false
+}

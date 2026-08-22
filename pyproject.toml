@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evidence-to-audio"
+version = "0.1.0"
+description = "A transparent multi-agent pipeline for turning source packs into private audio briefs."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Wayan Vota" }]
+keywords = ["agents", "audio", "podcast", "research", "editorial-workflow"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/wayanvota/evidence-to-audio"
+Issues = "https://github.com/wayanvota/evidence-to-audio/issues"
+
+[project.scripts]
+evidence-to-audio = "evidence_to_audio.cli:main"
+
+[tool.setuptools]
+packages = ["evidence_to_audio"]

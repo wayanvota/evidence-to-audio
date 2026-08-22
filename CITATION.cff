@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If this workflow informs your work, please cite the repository."
+title: "Evidence to Audio"
+type: software
+authors:
+  - family-names: Vota
+    given-names: Wayan
+version: 0.1.0
+date-released: 2026-08-22
+license: MIT
+repository-code: "https://github.com/wayanvota/evidence-to-audio"
+url: "https://github.com/wayanvota/evidence-to-audio"
+abstract: "A transparent multi-agent pipeline that turns source packs into private audio briefs through independent scouting, adversarial review, spoken-word editing, and approval-gated narration."

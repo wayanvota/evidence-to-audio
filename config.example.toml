@@ -1,0 +1,49 @@
+[project]
+title = "My Weekly Evidence Brief"
+max_minutes = 90
+target_words_per_minute = 160
+output_dir = "runs"
+
+# Any endpoint that implements OpenAI-compatible chat completions can be used.
+# For a local server, leave api_key_env empty. For a hosted provider, store the
+# key in the named environment variable. Never put a key in this file.
+[providers.primary]
+kind = "openai_compatible"
+base_url = "http://127.0.0.1:11434/v1"
+model = "replace-with-your-model"
+api_key_env = ""
+timeout_seconds = 180
+max_output_tokens = 7000
+
+# Scouts run independently and in parallel. Add or replace scouts to suit the
+# subject. Using different providers is supported by naming another provider.
+[agents.scouts.evidence]
+provider = "primary"
+prompt = "prompts/scout-evidence.md"
+
+[agents.scouts.skeptic]
+provider = "primary"
+prompt = "prompts/scout-skeptic.md"
+
+[agents.scouts.application]
+provider = "primary"
+prompt = "prompts/scout-application.md"
+
+[agents.critic]
+provider = "primary"
+prompt = "prompts/critic.md"
+
+[agents.editor]
+provider = "primary"
+prompt = "prompts/editor.md"
+
+[agents.producer]
+provider = "primary"
+prompt = "prompts/producer.md"
+
+[audio]
+engine = "edge-tts"
+voice = "en-AU-NatashaNeural"
+rate = "+8%"
+pitch = "-2Hz"
+format = "mp3"
