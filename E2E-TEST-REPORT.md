@@ -58,8 +58,10 @@ and the closest privacy, validation, provider, or approval failure.
 
 ## Verification record
 
-Status: local verification passed on September 11, 2026. GitHub Actions
-verification is pending the branch push.
+Status: local and GitHub Actions verification passed on September 11, 2026.
+GitHub Actions run
+[`34666087892`](https://github.com/wayanvota/evidence-to-audio/actions/runs/34666087892)
+passed on Python 3.11, 3.12, and 3.13.
 
 - 20 of 20 explicit E2E categories passed.
 - 35 of 35 total tests passed.
