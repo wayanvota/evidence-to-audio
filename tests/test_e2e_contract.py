@@ -110,9 +110,10 @@ class EndToEndContract(unittest.TestCase):
         root: Path,
         base_url: str,
         *,
-        api_key_env: str = "",
+        require_missing_key: bool = False,
         max_minutes: int = 10,
     ) -> tuple[Path, Path]:
+        provider_env_name = "E2E_MISSING_PROVIDER_KEY" if require_missing_key else ""
         prompts = root / "prompts"
         prompts.mkdir()
         for filename, role in {
@@ -145,7 +146,7 @@ class EndToEndContract(unittest.TestCase):
                 kind = "openai_compatible"
                 base_url = "{base_url}"
                 model = "synthetic-model"
-                api_key_env = "{api_key_env}"
+                api_key_env = "{provider_env_name}"
                 timeout_seconds = 5
                 max_output_tokens = 500
 
@@ -300,7 +301,7 @@ class EndToEndContract(unittest.TestCase):
     def test_A02_missing_named_api_key_fails_closed(self) -> None:
         with TemporaryDirectory() as directory, MockChatServer() as server:
             config, sources = self.project(
-                Path(directory), server.base_url, api_key_env="E2E_MISSING_PROVIDER_KEY"
+                Path(directory), server.base_url, require_missing_key=True
             )
             result = self.cli(
                 "run",

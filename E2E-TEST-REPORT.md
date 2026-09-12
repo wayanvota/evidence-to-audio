@@ -66,3 +66,13 @@ passed on Python 3.11, 3.12, and 3.13.
 - 20 of 20 explicit E2E categories passed.
 - 35 of 35 total tests passed.
 - Public sample validation, byte-compilation, and installed CLI discovery passed.
+
+## Pull-request security repair
+
+CodeQL treated the E2E fixture's freely supplied `api_key_env` parameter as a
+clear-text credential flowing into a temporary TOML file. The fixture stores an
+environment-variable name, never a key, but the unrestricted string also made
+the test boundary less precise than required. It now accepts a boolean missing-
+key scenario and writes only the fixed synthetic name
+`E2E_MISSING_PROVIDER_KEY`. The 20-category suite and all 35 tests passed after
+the change without reading or storing a credential.
