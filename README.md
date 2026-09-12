@@ -118,6 +118,11 @@ Validate it with:
 python3 -m evidence_to_audio validate --run examples/sample-run
 ```
 
+The installed CLI is also covered by a 20-category end-to-end contract using
+an in-process fake OpenAI-compatible endpoint. It makes no external provider or
+speech calls. See the [end-to-end test report](E2E-TEST-REPORT.md) for the
+cases, commands, debugging steps, and extension rules.
+
 ## Customize the agent team
 
 Agent roles live in `config.toml`, and their standing instructions live under `prompts/`.
